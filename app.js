@@ -7,7 +7,16 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+// Express app decleration
+var app = express(); 
+const connectionURL = require('./app.js').connectionURL; // Loading in my mmongoDB atlas username and pass url
+
+// Set up default mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = connectionURL;
+mongoose.connect(mongoDB, { userNewUrlsParser: true, useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:')); // Binds to the error event and prints to the console
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
