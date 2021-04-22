@@ -27,7 +27,7 @@ exports.genre_delete_get = function(req, res){
 
 // Handle Genre delete on POST
 exports.genre_delete_post = function(req, res){
-    res.send('NOT IMPLEMENTED: Genre update POST')
+    res.send('NOT IMPLEMENTED: Genre delete POST')
 };
 
 // Dsiplay Genre update form on GET
