@@ -10,12 +10,12 @@ var catalogRouter = require('./routes/catalog'); // Import routes for catalog ar
 
 // Express app decleration
 var app = express(); 
-const connectionURL = require('./app.js').connectionURL; // Loading in my mmongoDB atlas username and pass url
+const connectionURL = require('./serverCredentials.js').connectionURL; // Loading in my mongoDB atlas username and pass url (git ingored file)
 
 // Set up default mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = connectionURL;
-mongoose.connect(mongoDB, { userNewUrlsParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:')); // Binds to the error event and prints to the console
 
