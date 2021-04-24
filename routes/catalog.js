@@ -100,4 +100,35 @@ router.get('/genre/:id', genre_controller.genre_detail);
 // GET request for list of all Genre.
 router.get('/genres', genre_controller.genre_list);
 
+/// BOOK INSTANCE ROUTES
+
+// GET req for creating a BookInstance - this must come before route that displays BookInstannce
+router.get('/bookinstance/create', book_instance_controller.bookinstance_create_get);
+
+// POST request for creating BookInstance.
+router.post('/bookinstance/create', book_instance_controller.bookinstance_create_post);
+
+// GET request to delete BookInstance.
+router.get('/bookinstance/:id/delete', book_instance_controller.bookinstance_delete_get);
+
+// POST request to delete BookInstance.
+router.post('/bookinstance/:id/delete', book_instance_controller.bookinstance_delete_post);
+
+// GET request to update BookInstance.
+router.get('/bookinstance/:id/update', book_instance_controller.bookinstance_update_get);
+
+// POST request to update BookInstance.
+router.post('/bookinstance/:id/update', book_instance_controller.bookinstance_update_post);
+
+// GET request for one BookInstance.
+router.get('/bookinstance/:id', book_instance_controller.bookinstance_detail);
+
+// GET request for list of all BookInstance.
+router.get('/bookinstances', book_instance_controller.bookinstance_list);
+
+module.exports = router; // export the router object
+
+
+
+
 
