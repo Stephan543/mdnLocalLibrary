@@ -22,7 +22,7 @@ exports.bookinstance_create_post = function(req, res){
 };
 
 // Handle BookInstance delete on GET
-exports.bookinstance_delete_GET = function(req, res){
+exports.bookinstance_delete_get = function(req, res){
     res.send('NOT IMPLEMENTED: BookInstance delete GET');
 };
 
