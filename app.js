@@ -23,7 +23,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:')); // Bin
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 // Setting up middleware
 app.use(logger('dev'));
 app.use(express.json());
