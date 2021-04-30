@@ -10,11 +10,11 @@ block content
                 if val.status=='Available'
                     span.text-success #{val.status}
                 else if val.status=='Maintenance'
-                    span.text-danger #{val.status}
+                    span.text-danger #{val.status} 
                 else 
-                    span.text-warning #{val.status}
+                    span.text-warning #{val.status} 
                 if val.status!='Available'
-                    span (Due: #{val.due_back} )
+                    span (Due: #{val.due_back_formatted})
                 
         else 
             li There are no book copies in this library :(
