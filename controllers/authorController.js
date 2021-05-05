@@ -34,7 +34,7 @@ exports.author_detail = function(req, res, next){
             return next(err);            
         }
         // Successful so...
-        res.render('author_detail', { title: 'Author Detail', author: results.author, author_books: results.authors_books } );
+        res.render('author_detail', { title: 'Author Detail', author: results.author, author_books: results.author_books } );
     });
 };
 
