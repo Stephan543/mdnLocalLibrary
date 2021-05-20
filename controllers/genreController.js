@@ -1,4 +1,5 @@
 var Genre = require('../models/genre');
+const { body, validationResult } = require('express-validator');
 
 // Display list of all Genre
 exports.genre_list = function(req, res, next){
