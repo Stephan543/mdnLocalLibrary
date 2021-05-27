@@ -49,7 +49,8 @@ router.post('/author/create', author_controller.author_create_post);
 router.get('/author/:id/delete', author_controller.author_delete_get);
 
 // POST req to delete author
-router.post('/author/:id/update', author_controller.author_delete_post);
+router.post('/author/:id/delete', author_controller.author_delete_post);
+
 // GET request to update Author.
 router.get('/author/:id/update', author_controller.author_update_get);
 
