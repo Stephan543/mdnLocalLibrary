@@ -108,7 +108,19 @@ exports.bookinstance_delete_get = function(req, res, next){
 
 // Handle BookInstance delete on POST
 exports.bookinstance_delete_post = function(req, res, next){
-
+    async.parallel({
+        BookInstance: function(callback) {
+            BookInstance.findById(req.body.bookinstanceid).exec(callback)
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
+        BookInstance.findByIdAndRemove(req.body.bookinstanceid, function deleteBookinstance(err) {
+            if (err) { return next(err); }
+            // Success - go to author list
+            res.redirect('/catalog/bookinstances')
+        })
+    });
 };
 
 // Display BookInstance update form on GET
