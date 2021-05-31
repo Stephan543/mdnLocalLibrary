@@ -96,9 +96,6 @@ exports.bookinstance_delete_get = function(req, res, next){
         BookInstance: function(callback) {
             BookInstance.findById(req.params.id).exec(callback)
         },
-        Book: function(callback) {
-            Book.findById(req.params.id).exec(callback)
-        }
     }, function(err, results) {
         if (err) { return next(err); }
         // if (results.BookInstane==null){
@@ -110,8 +107,8 @@ exports.bookinstance_delete_get = function(req, res, next){
 };
 
 // Handle BookInstance delete on POST
-exports.bookinstance_delete_post = function(req, res){
-    res.send('NOT IMPLEMENTED: BookInstance delete POST');
+exports.bookinstance_delete_post = function(req, res, next){
+
 };
 
 // Display BookInstance update form on GET
