@@ -98,11 +98,8 @@ exports.bookinstance_delete_get = function(req, res, next){
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        // if (results.BookInstane==null){
-        //     res.redirect('/catalog/bookinstances')
-        // }
         //Sucessful, so render
-        res.render('bookinstance_delete', { title: 'Delete Book Instance', bookinstance: results.BookInstance, book: results.Book })
+        res.render('bookinstance_delete', { title: 'Delete Book Instance', bookinstance: results.BookInstance})
     });
 };
 
