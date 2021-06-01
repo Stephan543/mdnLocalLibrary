@@ -3,8 +3,6 @@ var Author = require('../models/author');
 var Genre = require('../models/genre');
 var BookInstance = require('../models/bookinstance');
 const { body,validationResult, Result } = require('express-validator');
-
-
 var async = require('async');
 
 exports.index = function(req, res) {
@@ -53,7 +51,6 @@ exports.book_detail = function(req, res, next) {
                 .exec(callback);
         },
         book_instance: function(callback) {
-
             BookInstance.find({ 'book': req.params.id })
             .exec(callback);
         },
@@ -157,8 +154,23 @@ exports.book_create_post = [
 ];
 
 // Display book delete form on GET.
-exports.book_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Book delete GET');
+exports.book_delete_get = function(req, res, next) {
+    
+    async.parallel({
+        book: function(callback){
+            Book.findById(req.params.id).exec(callback)
+        },
+        bookinstances: function(callback){
+            BookInstance.find({ 'book': req.params.id }).exec(callback)
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.book==null){
+            res.redirect('/catalog/books');
+        }
+        //Successful
+        res.render('book_delete', {title: 'Delete Book', book: results.book, bookinstances: results.bookinstances })
+        });
 };
 
 // Handle book delete on POST.
