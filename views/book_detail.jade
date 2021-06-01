@@ -25,7 +25,7 @@ block content
             else 
                 p.text-warning #{val.status}
             p #[strong Imprint:] #{val.imprint}
-            if val.status!='Available' 
+            if val.status=='Available' 
                 p #[strong Id:] 
                     a(href=val.url) #{val._id} 
 
