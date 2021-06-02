@@ -40,7 +40,7 @@ router.get('/books', book_controller.book_list);
 
 
 // GET req for creating Author - this must come before route ID
-router.get('/author/create', author_controller.author_create_post);
+router.get('/author/create', author_controller.author_create_get);
 
 // POST request for creating Author
 router.post('/author/create', author_controller.author_create_post);
