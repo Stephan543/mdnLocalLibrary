@@ -147,6 +147,44 @@ exports.genre_update_get = function(req, res, next){
 };
 
 // Handle Genre update on POST
-exports.genre_update_post = function(req, res){
-    res.send('NOT IMPLEMENTED: Genre update POST');
-};
+exports.genre_update_post = [
+    // Validate & Sanitize
+    body('name', 'Genre name required').trim().isLength({ min: 1}).escape(),
+
+    (req, res, next) => {
+        
+        const errors = validationResult(req);
+        
+        var genre = new Genre(
+            {
+                name: req.body.name,
+                _id: req.params.id // Need this or else a unique id will be assigned
+            }                
+        
+        );
+
+        if (!errors.isEmpty()){
+            // There are erros so re render
+            res.render('genre_form', { title: 'Update Genre', genre: genre, errors: errors.array()});
+            return;
+        } else {
+            // Data from form is valid
+            //Check for existing Genre with smae name already exists
+            Genre.findOne({ 'name': req.body.name }).exec( function(err, found_genre) {
+                if (err) { return next(err)}
+
+                if (found_genre){
+                    // Genre exists, redirect to its detail page
+                    res.redirect(found_genre.url);
+                }
+                else {
+                    Genre.findByIdAndUpdate(req.params.id, genre, {}, function (err, thegenre) {
+                        if (err) { return next(err); }
+                        // Genre saved. redirect to genre detail page
+                        res.redirect(thegenre.url);
+                    });
+                }
+            });
+        }
+    }
+];
