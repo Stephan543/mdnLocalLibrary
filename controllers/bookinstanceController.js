@@ -142,6 +142,48 @@ exports.bookinstance_update_get = function(req, res, next){
 };
 
 // Handle bookinstance update on POST
-exports.bookinstance_update_post = function(req, res){
-    res.send('NOT IMPLEMENTED: BookInstace update POST');
-};
+exports.bookinstance_update_post = [
+    
+    //Validate and sanitise fields
+    body('book', 'Book must be specified').trim().isLength({ min: 1 }).escape(),
+    body('imprint', 'Imprint must be specified').trim().isLength({ min: 1 }).escape(),
+    body('status').escape(),
+    body('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601().toDate(),
+
+    // Process request after validation and sanitization
+    (req, res, next) => {
+
+        //Extract the validation errors from a request
+        const errors = validationResult(req);
+
+        // Create a bookinstance object with excaped and trimmed data
+        var bookinstance = new BookInstance(
+            {
+                book: req.body.book,
+                imprint:req.body.imprint,
+                status: req.body.status,
+                due_back: req.body.due_back,
+                _id: req.params.id // Must add this in or else a new ID will be assigned
+            });
+        
+            if (!errors.isEmpty()) {
+                // There are errors. render form again with sanitised values and error messages
+                Book.find({}, 'title')
+                    .exec(function (err, books){
+                        if (err) { return next(err); }
+                        // Successful, so render
+                        res.render('bookinstance_form', { title: 'Update Book Instance', book_list: books, selected_book: bookinstance.book._id , errors: errors.array(), bookinstance: bookinstance });
+                    });
+                    return;
+            }
+            else { 
+                // Data from form is valid...
+                BookInstance.findByIdAndUpdate(req.params.id, bookinstance, {}, function (err, thebookinstance) {
+                    if (err) { return next(err); }
+                    // Successful - redirect to new book instance.
+                    res.redirect(thebookinstance.url);
+                });
+            }
+    }
+
+];
