@@ -14,7 +14,7 @@ var catalogRouter = require('./routes/catalog'); // Import routes for catalog ar
 
 // Express app decleration
 var app = express(); 
-const dev_db_url = require('./serverCredentials.js').dev_db_url; // Loading in my mongoDB atlas username and pass url (git ingored file)
+// const dev_db_url = require('./serverCredentials.js').dev_db_url; // Loading in my mongoDB atlas username and pass url (git ingored file)
 
 // Set up default mongoose connection
 var mongoose = require('mongoose');
