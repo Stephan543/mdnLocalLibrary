@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var compression = require('compression');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -18,6 +19,9 @@ var mongoDB = connectionURL;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:')); // Binds to the error event and prints to the console
+
+// Compress all routes
+app.use(compression()); // For high traffic website, in production, use reverse proxy like nginx
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
