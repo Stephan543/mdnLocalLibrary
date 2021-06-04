@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+// Production libraries
 var compression = require('compression');
+var helmet = require('helmet');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,6 +25,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:')); // Bin
 
 // Compress all routes
 app.use(compression()); // For high traffic website, in production, use reverse proxy like nginx
+
+//Setting appropriate http headers
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
